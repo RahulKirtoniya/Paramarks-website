@@ -32,6 +32,9 @@ export default async function CaseStudiesPage({
   const dict = await getDictionary(locale);
   const { hero, items } = dict.caseStudies;
 
+  const standard = items.filter((c) => !c.highlight);
+  const featured = items.find((c) => c.highlight);
+
   return (
     <>
       <PageHero
@@ -40,49 +43,71 @@ export default async function CaseStudiesPage({
         subline={hero.subline}
       />
 
+      {/* Editorial entries, ruled — reads like a register of matters */}
       <Section>
-        <div className="grid gap-6 lg:grid-cols-2">
-          {items.map((c, i) => (
+        <div className="border-t border-plum-200">
+          {standard.map((c, i) => (
             <article
               key={i}
-              className={[
-                "relative flex flex-col overflow-hidden rounded-2xl border p-8 shadow-card",
-                c.highlight
-                  ? "border-gold-300 bg-gradient-to-br from-gold-100/70 to-sand-50"
-                  : "border-plum-100 bg-sand-50",
-              ].join(" ")}
+              className="grid gap-4 border-b border-plum-200 py-10 md:grid-cols-12 md:gap-10"
             >
-              <div className="flex items-center gap-3">
-                <span
-                  className={[
-                    "flex h-11 w-11 items-center justify-center rounded-xl",
-                    c.highlight
-                      ? "bg-gold-500 text-plum-950"
-                      : "bg-plum-700 text-gold-400",
-                  ].join(" ")}
-                >
-                  <Icon name={c.icon} className="h-5 w-5" />
-                </span>
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-600">
-                  {c.area}
-                </span>
+              <div className="md:col-span-4">
+                <div className="flex items-center gap-3">
+                  <Icon name={c.icon} className="h-5 w-5 text-gold-600" />
+                  <span className="font-serif text-[1.05rem] font-semibold italic text-gold-700">
+                    {c.area}
+                  </span>
+                </div>
+                <h2 className="mt-4 font-serif text-[1.6rem] font-semibold leading-tight text-plum-700">
+                  {c.title}
+                </h2>
               </div>
-
-              <h2 className="mt-6 text-title font-serif text-plum-700">{c.title}</h2>
-              <p className="mt-3 text-base leading-relaxed text-ink-600">{c.text}</p>
-
-              {c.highlight && (
-                <p className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-plum-700">
-                  <Icon name="magnifier" className="h-4 w-4 text-gold-600" />
-                  {locale === "nl"
-                    ? "Via onze eigen onderzoeksafdeling"
-                    : "Handled by our in-house investigation unit"}
-                </p>
-              )}
+              <p className="text-[1.05rem] leading-relaxed text-ink-600 md:col-span-8 md:pt-1">
+                {c.text}
+              </p>
             </article>
           ))}
         </div>
       </Section>
+
+      {/* Featured — the in-house investigation unit, given its own plum plate */}
+      {featured && (
+        <section className="relative overflow-hidden bg-plum-900 py-section text-sand-50">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-80"
+            style={{
+              background:
+                "radial-gradient(50% 110% at 88% 15%, rgba(198,161,91,0.14), transparent 60%)",
+            }}
+          />
+          <div className="rule-gold absolute inset-x-0 top-0" aria-hidden />
+          <div className="container-x relative">
+            <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-4">
+                <span className="inline-flex items-center gap-3 rounded-[3px] border border-gold-400/40 bg-gold-500/10 px-4 py-2 text-sm font-semibold text-gold-300">
+                  <Icon name="magnifier" className="h-4 w-4" />
+                  {locale === "nl" ? "Eigen onderzoeksafdeling" : "In-house investigation unit"}
+                </span>
+                <p className="mt-6 font-serif text-[1.1rem] italic text-gold-300/90">
+                  {locale === "nl"
+                    ? "De enige in Suriname."
+                    : "The only one of its kind in Suriname."}
+                </p>
+              </div>
+              <div className="lg:col-span-8">
+                <span className="font-serif text-[1.05rem] font-semibold italic text-gold-400">
+                  {featured.area}
+                </span>
+                <h2 className="mt-3 text-headline text-sand-50">{featured.title}</h2>
+                <p className="mt-5 max-w-prose text-[1.1rem] leading-relaxed text-sand-200/85">
+                  {featured.text}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <CTASection locale={locale} dict={dict} />
     </>

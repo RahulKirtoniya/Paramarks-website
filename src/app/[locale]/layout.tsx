@@ -8,6 +8,9 @@ import { site } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import Chatbot from "@/components/Chatbot";
+import BackToTop from "@/components/BackToTop";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -47,8 +50,8 @@ export default async function LocaleLayout({
         {/*
           Fonts loaded via stylesheet so the project builds in restricted
           environments. To self-host instead (better CLS + privacy), download
-          the woff2 files and swap this for `next/font/local`, then keep the
-          same --font-fraunces / --font-manrope CSS variables.
+          the Bodoni Moda + Manrope woff2 files and swap this for
+          `next/font/local`, keeping the same font-family names.
         */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -58,7 +61,7 @@ export default async function LocaleLayout({
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@400;500;600;700;800&display=swap"
         />
       </head>
       <body className="flex min-h-screen flex-col">
@@ -74,6 +77,16 @@ export default async function LocaleLayout({
         </main>
         <Footer locale={locale} dict={dict} />
         <JsonLd locale={locale} />
+        <WhatsAppButton
+          label={locale === "nl" ? "Chat via WhatsApp" : "Chat on WhatsApp"}
+          message={
+            locale === "nl"
+              ? "Hallo Paramarks, ik heb een vraag over merkbescherming in Suriname."
+              : "Hello Paramarks, I have a question about trademark protection in Suriname."
+          }
+        />
+        <Chatbot locale={locale} dict={dict} />
+        <BackToTop label={locale === "nl" ? "Terug naar boven" : "Back to top"} />
       </body>
     </html>
   );

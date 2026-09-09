@@ -46,7 +46,7 @@ export default async function ContactPage({
 
           {/* Details */}
           <aside className="lg:col-span-5 lg:pl-8">
-            <div className="rounded-2xl border border-plum-100 bg-sand-100 p-8">
+            <div className="rounded-panel border border-plum-200 bg-paper p-8 shadow-card">
               <h2 className="text-title font-serif text-plum-700">{details.heading}</h2>
               <dl className="mt-6 space-y-5 text-sm">
                 <div>

@@ -4,8 +4,6 @@
 
 @layer base {
   :root {
-    --ring: 198 161 91; /* gold-500 for focus rings */
-    --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
     --font-manrope: "Manrope", system-ui, -apple-system, sans-serif;
   }
 
@@ -22,18 +20,17 @@
   h1, h2, h3, h4 {
     @apply font-serif text-plum-700;
     text-wrap: balance;
+    font-weight: 600;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  /* Bodoni carries emphasis through contrast, not italics-by-default */
+  p { text-wrap: pretty; }
 
   ::selection {
-    background: theme("colors.gold.300");
-    color: theme("colors.plum.900");
+    background: theme("colors.plum.700");
+    color: theme("colors.gold.300");
   }
 
-  /* Visible, on-brand keyboard focus */
   :focus-visible {
     outline: 2px solid theme("colors.gold.500");
     outline-offset: 3px;
@@ -41,9 +38,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
@@ -54,39 +49,73 @@
 
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-container px-6 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-container px-6 sm:px-8 lg:px-12;
   }
 
-  /* Thin gold hairline — the recurring structural motif */
-  .hairline {
-    @apply h-px w-full bg-gradient-to-r from-gold-500/70 via-gold-500/25 to-transparent;
+  /* Structural gold rule — used to encode structure, not decorate */
+  .rule-gold {
+    @apply h-px w-full bg-gradient-to-r from-gold-500/60 via-gold-500/20 to-transparent;
   }
 
-  /* Buttons */
+  /* Refined label. Sentence case, not shouty all-caps. Leads with a short rule. */
+  .label {
+    @apply inline-flex items-center gap-3 text-[0.78rem] font-semibold tracking-wide text-gold-700;
+  }
+  .label::before {
+    content: "";
+    @apply h-px w-7 bg-gold-600/70;
+  }
+  .label-light { @apply text-gold-300; }
+  .label-light::before { @apply bg-gold-400/70; }
+
+  /* Buttons — architectural, crisp corners. No pill, no appended arrow. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5
-           text-sm font-semibold tracking-wide transition-all duration-200
+    @apply inline-flex items-center justify-center rounded-[3px] px-7 py-3.5
+           text-[0.9rem] font-semibold tracking-wide transition-all duration-200
            focus-visible:outline-none;
   }
   .btn-gold {
-    @apply btn bg-gold-500 text-plum-950 hover:bg-gold-400
-           shadow-[0_10px_24px_-10px_rgba(198,161,91,0.7)] hover:-translate-y-0.5;
+    @apply btn bg-gold-500 text-plum-950 hover:bg-gold-400;
   }
   .btn-plum {
-    @apply btn bg-plum-700 text-sand-50 hover:bg-plum-600 hover:-translate-y-0.5;
+    @apply btn bg-plum-700 text-sand-50 hover:bg-plum-600;
   }
   .btn-outline {
-    @apply btn border border-plum-300/60 text-plum-700 hover:border-gold-500
-           hover:text-plum-900;
+    @apply btn border border-plum-300 text-plum-700 hover:border-gold-500 hover:text-plum-900;
   }
   .btn-ghost-light {
-    @apply btn border border-sand-50/30 text-sand-50 hover:border-gold-400
-           hover:text-gold-300;
+    @apply btn border border-sand-50/25 text-sand-50 hover:border-gold-400 hover:text-gold-300;
   }
 
-  /* Eyebrow label — used sparingly, sentence-styled not shouty all-caps blocks */
-  .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase
-           tracking-[0.18em] text-gold-600;
+  /* Quiet text link with an underline that answers the hover */
+  .link-gold {
+    @apply relative inline-flex items-center font-semibold text-plum-700 transition-colors hover:text-gold-700;
+  }
+  .link-gold::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gold-600 transition-transform duration-300;
+  }
+  .link-gold:hover::after { @apply scale-x-100; }
+}
+
+@layer components {
+  /* --- The registered seal: signature motif --- */
+  .seal-ring-spin { animation: seal-spin 100s linear infinite; transform-origin: center; }
+  .seal-draw {
+    stroke-dasharray: var(--len, 1600);
+    stroke-dashoffset: var(--len, 1600);
+    animation: seal-draw 1.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  }
+  .seal-fade { opacity: 0; animation: seal-fade 1.4s ease 0.5s forwards; }
+  .seal-fade-2 { opacity: 0; animation: seal-fade 1.4s ease 0.75s forwards; }
+
+  @keyframes seal-draw { to { stroke-dashoffset: 0; } }
+  @keyframes seal-fade { to { opacity: 1; } }
+  @keyframes seal-spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seal-ring-spin { animation: none; }
+    .seal-draw { stroke-dashoffset: 0; animation: none; }
+    .seal-fade, .seal-fade-2 { opacity: 1; animation: none; }
   }
 }

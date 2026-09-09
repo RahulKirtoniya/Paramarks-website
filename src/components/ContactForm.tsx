@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Dictionary } from "@/i18n/dictionaries/types";
 import { site } from "@/lib/site";
-import { CheckIcon, ArrowIcon } from "./icons/Icons";
+import { CheckIcon } from "./icons/Icons";
 
 type Fields = "name" | "company" | "email" | "country" | "message";
 
@@ -54,7 +54,7 @@ export default function ContactForm({ dict }: { dict: Dictionary["contact"]["for
 
   if (submitted) {
     return (
-      <div className="flex items-start gap-4 rounded-2xl border border-gold-300 bg-gold-100/60 p-6">
+      <div className="flex items-start gap-4 rounded-panel border border-gold-300 bg-gold-100/70 p-6">
         <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gold-500 text-plum-950">
           <CheckIcon className="h-4 w-4" />
         </span>
@@ -111,7 +111,6 @@ export default function ContactForm({ dict }: { dict: Dictionary["contact"]["for
       <div className="sm:col-span-2">
         <button type="submit" className="btn-gold w-full sm:w-auto">
           {dict.submit}
-          <ArrowIcon className="h-4 w-4" />
         </button>
       </div>
     </form>
@@ -149,7 +148,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 
 function inputClass(hasError: boolean): string {
   return [
-    "w-full rounded-xl border bg-sand-50 px-4 py-3 text-base text-ink-700",
+    "w-full rounded-card border bg-paper px-4 py-3 text-base text-ink-700",
     "placeholder:text-ink-400 transition-colors",
     "focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-500/30",
     hasError ? "border-red-400" : "border-plum-200",

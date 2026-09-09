@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/lib/getDictionary";
 import { buildMetadata } from "@/lib/seo";
@@ -7,8 +8,7 @@ import { localePath } from "@/lib/paths";
 import { Section, SectionHeading, Tagline } from "@/components/Primitives";
 import { USPGrid, ServicesGrid } from "@/components/Sections";
 import CTASection from "@/components/CTASection";
-import { ArrowIcon } from "@/components/icons/Icons";
-import { notFound } from "next/navigation";
+import HeroRegister from "@/components/HeroRegister";
 
 export async function generateMetadata({
   params,
@@ -30,6 +30,21 @@ export default async function HomePage({
   const dict = await getDictionary(locale);
   const { hero, usp, services, cases } = dict.home;
 
+  const credentials =
+    locale === "nl"
+      ? [
+          { k: "Opgericht", v: "1997" },
+          { k: "Vertrouwd door", v: "Fortune 500" },
+          { k: "Lidmaatschap", v: "INTA & ASIPI" },
+          { k: "Onderzoek", v: "Eigen afdeling" },
+        ]
+      : [
+          { k: "Founded", v: "1997" },
+          { k: "Trusted by", v: "Fortune 500" },
+          { k: "Members of", v: "INTA & ASIPI" },
+          { k: "Investigations", v: "In-house unit" },
+        ];
+
   return (
     <>
       {/* ---------------- HERO ---------------- */}
@@ -39,87 +54,103 @@ export default async function HomePage({
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(55% 90% at 78% 8%, rgba(198,161,91,0.18), transparent 55%)",
+              "radial-gradient(60% 80% at 82% 30%, rgba(198,161,91,0.10), transparent 60%)",
           }}
         />
-        {/* Faint concentric rings, right side */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-40 top-1/2 hidden -translate-y-1/2 md:block"
-        >
-          <div className="h-[560px] w-[560px] rounded-full border border-gold-500/12" />
-          <div className="absolute inset-16 rounded-full border border-gold-500/10" />
-          <div className="absolute inset-32 rounded-full border border-gold-500/8" />
-        </div>
+        <div className="container-x relative">
+          <div className="grid items-center gap-y-12 pb-20 pt-20 sm:pt-24 lg:grid-cols-12 lg:gap-x-10 lg:pb-28 lg:pt-28">
+            <div className="lg:col-span-7">
+              <p className="label label-light">
+                {locale === "nl" ? "Intellectueel eigendom \u2014 Suriname" : "Intellectual property \u2014 Suriname"}
+              </p>
+              <h1 className="mt-7 max-w-[15ch] text-display-lg text-sand-50 animate-rise">
+                {hero.headline}
+              </h1>
+              <p className="mt-8 max-w-xl text-[1.15rem] leading-relaxed text-sand-200/85">
+                {hero.subline}
+              </p>
+              <p className="mt-6 max-w-xl border-l border-gold-500/50 pl-5 text-[1rem] leading-relaxed text-sand-200/70">
+                {hero.impact}
+              </p>
 
-        <div className="container-x relative grid gap-12 pb-20 pt-20 sm:pt-28 lg:grid-cols-12 lg:gap-8 lg:pb-28">
-          <div className="lg:col-span-8">
-            <p className="eyebrow text-gold-400">
-              <span className="h-px w-6 bg-gold-500/70" aria-hidden />
-              {hero.eyebrow}
-            </p>
-            <h1 className="mt-6 max-w-[16ch] text-display-lg text-sand-50 animate-rise">
-              {hero.headline}
-            </h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-sand-200/85">
-              {/* Fortune 500 made prominent, per brief */}
-              Led by credentialed IP attorneys,{" "}
-              <span className="font-semibold text-gold-300">
-                trusted by Fortune 500 companies worldwide.
-              </span>
-            </p>
-            <p className="mt-5 max-w-xl border-l-2 border-gold-500/60 pl-4 text-base leading-relaxed text-sand-200/70">
-              {hero.impact}
-            </p>
+              <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+                <Link href={localePath(locale, "contact")} className="btn-gold">
+                  {dict.cta.contact}
+                </Link>
+                <Tagline text={dict.tagline} variant="light" className="text-[1.15rem]" />
+              </div>
+            </div>
 
-            <div className="mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-              <Link href={localePath(locale, "contact")} className="btn-gold">
-                {dict.cta.contact}
-                <ArrowIcon className="h-4 w-4" />
-              </Link>
-              <Tagline text={dict.tagline} variant="light" className="text-lg" />
+            {/* The registered seal — interactive: type a brand, see it engraved */}
+            <div className="lg:col-span-5">
+              <HeroRegister
+                inputLabel={
+                  locale === "nl"
+                    ? "Zie uw eigen merk in het zegel"
+                    : "See your own brand in the seal"
+                }
+                placeholder={locale === "nl" ? "Voer uw merk in" : "Enter your brand"}
+                action={locale === "nl" ? "Registreer het merk" : "See it registered"}
+                confirm={
+                  locale === "nl"
+                    ? "{brand} \u2014 uw merk, in vakkundige handen."
+                    : "{brand} \u2014 your mark, in qualified hands."
+                }
+              />
             </div>
           </div>
         </div>
-        <div className="hairline absolute inset-x-0 bottom-0" aria-hidden />
+
+        {/* Credential register — structural vertical rules, not a meta-dot string */}
+        <div className="relative border-t border-sand-50/12 bg-plum-950/40">
+          <div className="container-x">
+            <dl className="grid grid-cols-2 lg:grid-cols-4">
+              {credentials.map((c, i) => (
+                <div
+                  key={i}
+                  className={[
+                    "py-6",
+                    i % 2 === 1 ? "" : "border-r border-sand-50/12",
+                    "lg:border-r lg:last:border-r-0",
+                    i < 2 ? "border-b border-sand-50/12 lg:border-b-0" : "",
+                    "pl-0 pr-4 lg:pl-6",
+                  ].join(" ")}
+                >
+                  <dt className="text-[0.74rem] font-semibold tracking-wide text-sand-200/50">
+                    {c.k}
+                  </dt>
+                  <dd className="mt-1 font-serif text-[1.35rem] font-semibold text-gold-300">
+                    {c.v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
       </section>
 
       {/* ---------------- USP ---------------- */}
       <Section>
         <SectionHeading
-          eyebrow={usp.heading}
-          title={
-            locale === "nl"
-              ? "Waarom cliënten wereldwijd op ons bouwen."
-              : "Why clients worldwide rely on us."
-          }
+          label={usp.heading}
+          title={locale === "nl" ? "Waarom cli\u00EBnten wereldwijd op ons bouwen." : "Why clients worldwide rely on us."}
         />
-        <div className="mt-12">
+        <div className="mt-14">
           <USPGrid items={usp.items} />
         </div>
       </Section>
 
       {/* ---------------- SERVICES ---------------- */}
-      <section className="bg-sand-100 py-section">
+      <section className="border-y border-plum-100 bg-paper py-section">
         <div className="container-x">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading
-              eyebrow={services.heading}
-              title={services.closing}
-            />
-            <Link
-              href={localePath(locale, "services")}
-              className="btn-outline self-start md:self-auto"
-            >
-              {dict.nav.services}
-              <ArrowIcon className="h-4 w-4" />
+            <SectionHeading label={services.heading} title={services.closing} />
+            <Link href={localePath(locale, "services")} className="link-gold self-start pb-1 md:self-auto">
+              {locale === "nl" ? "Alle diensten bekijken" : "View all services"}
             </Link>
           </div>
           <div className="mt-12">
             <ServicesGrid items={services.items} />
-          </div>
-          <div className="mt-10">
-            <Tagline text={dict.tagline} variant="quiet" className="text-base" />
           </div>
         </div>
       </section>
@@ -127,27 +158,28 @@ export default async function HomePage({
       {/* ---------------- CASE STUDIES ---------------- */}
       <Section>
         <SectionHeading
-          eyebrow={locale === "nl" ? "Praktijk" : "Track record"}
+          label={locale === "nl" ? "Praktijk" : "Track record"}
           title={cases.heading}
         />
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-plum-100 bg-plum-100 md:grid-cols-2">
+        <div className="mt-12 border-t border-plum-200">
           {cases.items.map((c, i) => (
-            <div key={i} className="bg-sand-50 p-8">
-              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-600">
-                {c.label}
-              </span>
-              <p className="mt-4 text-base leading-relaxed text-ink-600">{c.text}</p>
+            <div
+              key={i}
+              className="grid gap-3 border-b border-plum-200 py-8 md:grid-cols-12 md:gap-8"
+            >
+              <div className="md:col-span-3">
+                <span className="font-serif text-[1.1rem] font-semibold italic text-gold-700">
+                  {c.label}
+                </span>
+              </div>
+              <p className="text-[1.05rem] leading-relaxed text-ink-600 md:col-span-9">{c.text}</p>
             </div>
           ))}
         </div>
         <div className="mt-10 flex items-center justify-between gap-4">
           <Tagline text={dict.tagline} variant="quiet" />
-          <Link
-            href={localePath(locale, "caseStudies")}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-plum-700 hover:text-gold-600"
-          >
-            {dict.nav.caseStudies}
-            <ArrowIcon className="h-4 w-4" />
+          <Link href={localePath(locale, "caseStudies")} className="link-gold">
+            {locale === "nl" ? "Meer praktijkvoorbeelden" : "More case studies"}
           </Link>
         </div>
       </Section>

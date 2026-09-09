@@ -1,7 +1,7 @@
 import type { Dictionary, IconName } from "@/i18n/dictionaries/types";
 import { Icon } from "./icons/Icons";
 
-/* ---------------- USP feature list ---------------- */
+/* ---------------- USP — editorial hairline rows, not cards ---------------- */
 
 export function USPGrid({
   items,
@@ -9,18 +9,17 @@ export function USPGrid({
   items: { icon: IconName; title: string; text: string }[];
 }) {
   return (
-    <div className="grid gap-px overflow-hidden rounded-2xl border border-plum-100 bg-plum-100 sm:grid-cols-2">
+    <div className="grid gap-x-14 gap-y-10 sm:grid-cols-2">
       {items.map((item, i) => (
-        <div
-          key={i}
-          className="group flex gap-4 bg-sand-50 p-7 transition-colors hover:bg-sand-100"
-        >
-          <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-plum-700 text-gold-400 transition-colors group-hover:bg-plum-600">
-            <Icon name={item.icon} className="h-6 w-6" />
-          </span>
-          <div>
-            <h3 className="text-base font-semibold text-plum-700">{item.title}</h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-ink-500">{item.text}</p>
+        <div key={i} className="border-t border-plum-200 pt-6">
+          <div className="flex items-start gap-4">
+            <Icon name={item.icon} className="mt-0.5 h-6 w-6 flex-none text-gold-600" />
+            <div>
+              <h3 className="font-serif text-[1.3rem] font-semibold leading-tight text-plum-700">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-500">{item.text}</p>
+            </div>
           </div>
         </div>
       ))}
@@ -28,7 +27,7 @@ export function USPGrid({
   );
 }
 
-/* ---------------- Services grid ---------------- */
+/* ---------------- Services — an index/register, hairline-ruled ---------------- */
 
 export function ServicesGrid({
   items,
@@ -36,26 +35,27 @@ export function ServicesGrid({
   items: { title: string; text: string }[];
 }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid border-t border-plum-200 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item, i) => (
         <article
           key={i}
-          className="group relative overflow-hidden rounded-2xl border border-plum-100 bg-sand-50 p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:shadow-lift"
+          className="group border-b border-plum-200 py-7 pr-6 sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:pr-8 lg:[&:nth-child(3n+1)]:border-r lg:[&:nth-child(3n+2)]:border-r lg:pr-8"
         >
-          <span
-            aria-hidden
-            className="absolute right-5 top-5 h-8 w-8 rounded-full border border-gold-300/60 opacity-0 transition-opacity group-hover:opacity-100"
-          />
-          <h3 className="text-title font-serif text-plum-700">{item.title}</h3>
-          <p className="mt-2.5 text-sm leading-relaxed text-ink-500">{item.text}</p>
-          <span className="mt-5 block h-px w-8 bg-gold-500/70 transition-all duration-200 group-hover:w-14" />
+          <div className="sm:pl-2 lg:pl-4">
+            <h3 className="font-serif text-[1.35rem] font-semibold leading-tight text-plum-700 transition-colors group-hover:text-gold-700">
+              {item.title}
+            </h3>
+            <p className="mt-2.5 max-w-[42ch] text-[0.95rem] leading-relaxed text-ink-500">
+              {item.text}
+            </p>
+          </div>
         </article>
       ))}
     </div>
   );
 }
 
-/* ---------------- Team cards ---------------- */
+/* ---------------- Team — portrait plate + structured credentials ---------------- */
 
 export function TeamGrid({
   members,
@@ -63,38 +63,43 @@ export function TeamGrid({
   members: Dictionary["team"]["members"];
 }) {
   return (
-    <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-      {members.map((m, i) => (
-        <article
-          key={i}
-          className="flex flex-col rounded-2xl border border-plum-100 bg-sand-50 p-7 shadow-card"
-        >
-          {/* Portrait placeholder — swap for a real photo */}
-          <div className="relative mb-6 aspect-[4/5] w-full overflow-hidden rounded-xl bg-gradient-to-br from-plum-700 to-plum-900">
-            <div
-              aria-hidden
-              className="absolute inset-0 opacity-30"
-              style={{
-                background:
-                  "radial-gradient(60% 60% at 30% 20%, rgba(198,161,91,0.4), transparent 60%)",
-              }}
-            />
-            <span className="absolute bottom-4 left-4 flex h-11 w-11 items-center justify-center rounded-lg bg-sand-50/10 text-gold-300 backdrop-blur">
-              <Icon name={m.icon} className="h-6 w-6" />
-            </span>
-            <span className="absolute right-4 top-4 font-serif text-5xl text-sand-50/15">
-              {m.name.split(" ").map((w) => w[0]).join("")}
-            </span>
-          </div>
+    <div className="grid gap-x-10 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+      {members.map((m, i) => {
+        const creds = m.credentials.split("\u00B7").map((s) => s.trim()).filter(Boolean);
+        return (
+          <article key={i} className="flex flex-col">
+            {/* Portrait plate — deep plum with the seal watermark; swap for a real photo */}
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-card bg-plum-800">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 opacity-[0.13]"
+                style={{
+                  backgroundImage:
+                    "repeating-radial-gradient(circle at 30% 22%, #C6A15B 0 1px, transparent 1px 13px)",
+                }}
+              />
+              <span className="absolute left-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-gold-500/40 text-gold-400">
+                <Icon name={m.icon} className="h-5 w-5" />
+              </span>
+              <span className="absolute bottom-4 right-5 font-serif text-6xl italic text-sand-50/12">
+                {m.name.split(" ").map((w) => w[0]).join("")}
+              </span>
+            </div>
 
-          <h3 className="text-title font-serif text-plum-700">{m.name}</h3>
-          <p className="mt-1 text-sm font-semibold text-gold-600">{m.role}</p>
-          <p className="mt-3 text-xs font-medium uppercase tracking-wide text-ink-400">
-            {m.credentials}
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-ink-500">{m.bio}</p>
-        </article>
-      ))}
+            <h3 className="mt-6 font-serif text-[1.45rem] font-semibold text-plum-700">{m.name}</h3>
+            <p className="mt-1 text-sm font-semibold text-gold-700">{m.role}</p>
+
+            <ul className="mt-4 space-y-1.5 border-t border-plum-200 pt-4">
+              {creds.map((c, j) => (
+                <li key={j} className="text-[0.82rem] leading-snug text-ink-400">
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-ink-500">{m.bio}</p>
+          </article>
+        );
+      })}
     </div>
   );
 }
