@@ -1,31 +1,43 @@
 import type { ReactNode } from "react";
 
 export function SectionHeading({
-  label,
+  eyebrow,
   title,
   intro,
   align = "left",
   light = false,
 }: {
-  label?: string;
+  eyebrow?: string;
   title: string;
   intro?: string;
   align?: "left" | "center";
   light?: boolean;
 }) {
   return (
-    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-2xl"}>
-      {label && (
-        <p className={["label", light ? "label-light" : ""].join(" ")}>{label}</p>
+    <div
+      className={[
+        align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-2xl",
+      ].join(" ")}
+    >
+      {eyebrow && (
+        <p className={light ? "eyebrow text-gold-400" : "eyebrow"}>
+          <span className="h-px w-6 bg-gold-500/70" aria-hidden />
+          {eyebrow}
+        </p>
       )}
-      <h2 className={["mt-5 text-headline", light ? "text-sand-50" : "text-plum-700"].join(" ")}>
+      <h2
+        className={[
+          "mt-4 text-headline",
+          light ? "text-sand-50" : "text-plum-700",
+        ].join(" ")}
+      >
         {title}
       </h2>
       {intro && (
         <p
           className={[
-            "mt-5 max-w-prose text-[1.05rem] leading-relaxed",
-            light ? "text-sand-200/85" : "text-ink-500",
+            "mt-4 max-w-prose text-base leading-relaxed sm:text-lg",
+            light ? "text-sand-200/80" : "text-ink-500",
             align === "center" ? "mx-auto" : "",
           ].join(" ")}
         >
@@ -36,7 +48,7 @@ export function SectionHeading({
   );
 }
 
-/** The recurring tagline signature, set in the Didone italic. */
+/** The recurring tagline signature. `variant` tunes it to its surroundings. */
 export function Tagline({
   text,
   variant = "default",
@@ -47,9 +59,21 @@ export function Tagline({
   className?: string;
 }) {
   const color =
-    variant === "light" ? "text-gold-300" : variant === "quiet" ? "text-ink-400" : "text-gold-700";
+    variant === "light"
+      ? "text-gold-300"
+      : variant === "quiet"
+        ? "text-ink-400"
+        : "text-gold-600";
   return (
-    <p className={["font-serif italic tracking-tight", color, className].join(" ")}>{text}</p>
+    <p
+      className={[
+        "font-serif italic tracking-tight",
+        color,
+        className,
+      ].join(" ")}
+    >
+      {text}
+    </p>
   );
 }
 

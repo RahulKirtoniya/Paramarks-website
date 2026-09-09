@@ -18,9 +18,6 @@ export const site = {
   contact: {
     email: "info@paramarks.com",
     phone: "+597 000 0000",
-    // WhatsApp number in international format, digits only (no +, spaces or
-    // dashes) — this is what wa.me expects. Replace with the firm's real number.
-    whatsapp: "5970000000",
     address: {
       street: "Paramaribo",
       city: "Paramaribo",

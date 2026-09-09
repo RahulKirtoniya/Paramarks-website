@@ -7,9 +7,7 @@ export type RouteKey =
   | "services"
   | "caseStudies"
   | "faq"
-  | "contact"
-  | "privacy"
-  | "terms";
+  | "contact";
 
 export const routeSlugs: Record<RouteKey, string> = {
   home: "",
@@ -19,8 +17,6 @@ export const routeSlugs: Record<RouteKey, string> = {
   caseStudies: "case-studies",
   faq: "faq",
   contact: "contact",
-  privacy: "privacy",
-  terms: "terms",
 };
 
 export function localePath(locale: Locale, route: RouteKey): string {

@@ -6,7 +6,6 @@ import { buildMetadata } from "@/lib/seo";
 import PageHero from "@/components/PageHero";
 import { Section, Tagline } from "@/components/Primitives";
 import CTASection from "@/components/CTASection";
-import Counter from "@/components/Counter";
 
 export async function generateMetadata({
   params,
@@ -54,21 +53,24 @@ export default async function AboutPage({
 
           {/* Mission card */}
           <aside className="lg:col-span-5">
-            <div className="relative overflow-hidden rounded-panel bg-plum-800 p-9 text-sand-50 shadow-lift">
+            <div className="relative overflow-hidden rounded-2xl bg-plum-800 p-8 text-sand-50 shadow-lift">
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0 opacity-70"
                 style={{
                   background:
-                    "radial-gradient(70% 90% at 90% 0%, rgba(198,161,91,0.16), transparent 60%)",
+                    "radial-gradient(70% 90% at 90% 0%, rgba(198,161,91,0.18), transparent 60%)",
                 }}
               />
               <div className="relative">
-                <p className="label label-light">{mission.label}</p>
-                <p className="mt-6 font-serif text-[1.4rem] leading-snug text-sand-50">
+                <p className="eyebrow text-gold-400">
+                  <span className="h-px w-6 bg-gold-500/70" aria-hidden />
+                  {mission.label}
+                </p>
+                <p className="mt-5 font-serif text-xl leading-snug text-sand-50">
                   {mission.body}
                 </p>
-                <p className="mt-7 font-serif text-[1.15rem] italic text-gold-300">{dict.tagline}</p>
+                <p className="mt-6 font-serif italic text-gold-300">{dict.tagline}</p>
               </div>
             </div>
           </aside>
@@ -78,23 +80,15 @@ export default async function AboutPage({
       {/* Stats */}
       <section className="bg-sand-100 py-section">
         <div className="container-x">
-          <div className="grid grid-cols-2 border-t border-plum-200 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-plum-100 bg-plum-100 lg:grid-cols-4">
             {stats.map((s, i) => (
-              <div
-                key={i}
-                className={[
-                  "py-9",
-                  "border-b border-plum-200 lg:border-b-0",
-                  i % 2 === 0 ? "border-r border-plum-200" : "",
-                  "lg:border-r lg:last:border-r-0",
-                  "pl-1 lg:pl-6",
-                ].join(" ")}
-              >
-                <Counter
-                  value={s.value}
-                  className="block font-serif text-5xl font-semibold tabular-nums text-plum-700"
-                />
-                <div className="mt-2 text-[0.9rem] text-ink-400">{s.label}</div>
+              <div key={i} className="bg-sand-50 px-6 py-10 text-center">
+                <div className="font-serif text-4xl font-semibold text-plum-700 sm:text-5xl">
+                  {s.value}
+                </div>
+                <div className="mt-2 text-sm font-medium uppercase tracking-wide text-ink-400">
+                  {s.label}
+                </div>
               </div>
             ))}
           </div>

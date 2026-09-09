@@ -37,7 +37,7 @@ export default function Footer({
               {dict.footer.subTagline}
             </p>
 
-            <p className="mt-7 text-[0.74rem] font-semibold tracking-wide text-sand-200/45">
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-sand-200/50">
               {dict.footer.membership}
             </p>
             <div className="mt-3 flex items-center gap-3" aria-hidden>
@@ -54,7 +54,7 @@ export default function Footer({
 
           {/* Navigation */}
           <div className="md:col-span-3">
-            <h3 className="text-[0.74rem] font-semibold tracking-wide text-sand-200/45">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-sand-200/50">
               {dict.footer.nav}
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -73,7 +73,7 @@ export default function Footer({
 
           {/* Contact */}
           <div className="md:col-span-4">
-            <h3 className="text-[0.74rem] font-semibold tracking-wide text-sand-200/45">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-sand-200/50">
               {dict.footer.contact}
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm">
@@ -104,25 +104,11 @@ export default function Footer({
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-sand-200/10 pt-6 text-xs text-sand-200/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-sand-200/10 pt-6 text-xs text-sand-200/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.name}. {dict.footer.rights}
           </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href={localePath(locale, "privacy")}
-              className="transition-colors hover:text-gold-300"
-            >
-              {locale === "nl" ? "Privacybeleid" : "Privacy Policy"}
-            </Link>
-            <span aria-hidden className="h-3 w-px bg-sand-200/20" />
-            <Link
-              href={localePath(locale, "terms")}
-              className="transition-colors hover:text-gold-300"
-            >
-              {locale === "nl" ? "Algemene voorwaarden" : "Terms & Conditions"}
-            </Link>
-          </div>
+          <p>{dict.footer.subTagline}</p>
         </div>
       </div>
     </footer>
