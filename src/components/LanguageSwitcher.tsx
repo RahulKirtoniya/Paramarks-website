@@ -2,8 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { locales, localeLabels, localeNames, type Locale } from "@/i18n/config";
+import { GlobeIcon, ChevronDownIcon } from "./icons/Icons";
 
+/**
+ * Language switcher as a compact dropdown: a globe + the current language,
+ * which opens a small menu to switch. Closes on outside click, Esc, or select.
+ * Keeps the visitor on the same page in the other locale.
+ */
 export default function LanguageSwitcher({
   current,
   label,
@@ -14,40 +21,85 @@ export default function LanguageSwitcher({
   light?: boolean;
 }) {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-  // Swap the first path segment (the locale) while keeping the rest of the URL.
+  // Swap the first path segment (the locale) and keep the rest of the URL.
   function pathFor(locale: Locale): string {
     const segments = pathname.split("/");
-    segments[1] = locale; // segments[0] is "" before the leading slash
+    segments[1] = locale;
     return segments.join("/") || `/${locale}`;
   }
 
-  const idle = light ? "text-sand-200/70" : "text-ink-400";
-  const active = light ? "text-gold-300" : "text-plum-700";
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const trigger = light
+    ? "border-sand-50/25 text-sand-50 hover:border-gold-400"
+    : "border-plum-200 text-plum-700 hover:border-gold-500";
 
   return (
-    <div
-      className="flex items-center gap-1 text-sm font-semibold"
-      role="group"
-      aria-label={label}
-    >
-      {locales.map((locale, i) => (
-        <span key={locale} className="flex items-center">
-          {i > 0 && <span className={`mx-1 ${idle}`} aria-hidden>·</span>}
-          <Link
-            href={pathFor(locale)}
-            hrefLang={locale}
-            aria-label={localeNames[locale]}
-            aria-current={locale === current ? "true" : undefined}
-            className={[
-              "rounded px-1 transition-colors hover:text-gold-500",
-              locale === current ? active : idle,
-            ].join(" ")}
-          >
-            {localeLabels[locale]}
-          </Link>
-        </span>
-      ))}
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={label}
+        className={[
+          "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-semibold transition-colors",
+          trigger,
+        ].join(" ")}
+      >
+        <GlobeIcon className="h-4 w-4 text-gold-600" />
+        {localeLabels[current]}
+        <ChevronDownIcon
+          className={["h-3.5 w-3.5 transition-transform", open ? "rotate-180" : ""].join(" ")}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="absolute right-0 z-50 mt-2 min-w-[168px] overflow-hidden rounded-card border border-plum-100 bg-paper py-1.5 shadow-lift"
+        >
+          {locales.map((locale) => {
+            const active = locale === current;
+            return (
+              <Link
+                key={locale}
+                role="menuitem"
+                href={pathFor(locale)}
+                hrefLang={locale}
+                aria-current={active ? "true" : undefined}
+                onClick={() => setOpen(false)}
+                className={[
+                  "flex items-center justify-between gap-4 px-4 py-2 text-sm transition-colors",
+                  active
+                    ? "font-semibold text-plum-700"
+                    : "text-ink-500 hover:bg-sand-100 hover:text-plum-700",
+                ].join(" ")}
+              >
+                <span>{localeNames[locale]}</span>
+                <span className={active ? "text-gold-600" : "text-ink-400"}>
+                  {localeLabels[locale]}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

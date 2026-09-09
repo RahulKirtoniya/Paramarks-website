@@ -18,13 +18,21 @@ const nl: Dictionary = {
       title: "Over Paramarks PC — Surinames vertrouwde IP-praktijk",
       description:
         "Opgericht in 1997 is Paramarks PC een boutique IP-kantoor volledig gespecialiseerd in merken en merkbescherming in Suriname, voor multinationals en internationale merkhouders.",
-      keywords: ["boutique IP-kantoor", "merkenrecht Suriname", "merkbescherming Suriname"],
+      keywords: [
+        "boutique IP-kantoor",
+        "merkenrecht Suriname",
+        "merkbescherming Suriname",
+      ],
     },
     team: {
       title: "Ons team — Vakkundige IP-advocaten | Paramarks PC",
       description:
         "Maak kennis met de vakkundige IP-advocaten achter Paramarks — het enige kantoor in Suriname met een eigen onderzoeksafdeling, vertrouwd door Fortune 500 wereldwijd.",
-      keywords: ["IP-advocaten Suriname", "merkenonderzoeker", "Sherida Knoppel"],
+      keywords: [
+        "IP-advocaten Suriname",
+        "merkenonderzoeker",
+        "Sherida Knoppel",
+      ],
     },
     services: {
       title: "Merkenrechtdiensten in Suriname | Paramarks PC",
@@ -38,7 +46,8 @@ const nl: Dictionary = {
       ],
     },
     caseStudies: {
-      title: "Praktijkvoorbeelden — Echte zaken, doortastende resultaten | Paramarks PC",
+      title:
+        "Praktijkvoorbeelden — Echte zaken, doortastende resultaten | Paramarks PC",
       description:
         "Representatieve zaken die laten zien hoe Paramarks merken beschermt in Suriname en internationaal — opposities, weigeringen, conflicten en handhaving.",
       keywords: ["merkenrecht praktijkvoorbeelden", "merkhandhaving Suriname"],
@@ -47,7 +56,10 @@ const nl: Dictionary = {
       title: "Veelgestelde vragen | Paramarks PC",
       description:
         "Antwoorden op veelgestelde vragen over merkbescherming, registratie en handhaving in Suriname.",
-      keywords: ["merkenrecht veelgestelde vragen Suriname", "merk registreren Suriname"],
+      keywords: [
+        "merkenrecht veelgestelde vragen Suriname",
+        "merk registreren Suriname",
+      ],
     },
     contact: {
       title: "Neem contact op met ons IP-team | Paramarks PC",
@@ -63,9 +75,9 @@ const nl: Dictionary = {
     team: "Team",
     services: "Diensten",
     caseStudies: "Praktijkvoorbeelden",
-    faq: "Veelgestelde vragen",
+    faq: "FAQ",
     contact: "Contact",
-    cta: "Neem vandaag contact op",
+    cta: "Neem contact op",
     languageLabel: "Taal",
   },
 
@@ -81,8 +93,10 @@ const nl: Dictionary = {
   home: {
     hero: {
       eyebrow: "Intellectueel eigendom, Suriname",
-      headline: "Wij beschermen uw merk en versterken uw onderneming wereldwijd.",
-      subline: "Geleid door vakkundige IP-advocaten, vertrouwd door Fortune 500-bedrijven wereldwijd.",
+      headline:
+        "Wij beschermen uw merk en versterken uw onderneming wereldwijd.",
+      subline:
+        "Geleid door vakkundige IP-advocaten, vertrouwd door Fortune 500-bedrijven wereldwijd.",
       impact:
         "Bij opposities, weigeringen, conflicten of handhavingskwesties wilt u zeker weten dat u in vakkundige handen bent.",
     },
@@ -115,25 +129,47 @@ const nl: Dictionary = {
       heading: "Kerndiensten",
       closing: "Doortastende actie wanneer het er het meest toe doet.",
       items: [
-        { title: "Merkregistratie", text: "Onderzoek, depot en registratie binnen het Surinaamse merkensysteem." },
-        { title: "Handhaving", text: "Opposities, doorhalingsacties, anti-namaak en gerechtelijke procedures." },
-        { title: "Portfoliostrategie", text: "Opzet en beheer van merkportefeuilles over jurisdicties heen." },
+        {
+          title: "Merkregistratie",
+          text: "Onderzoek, depot en registratie binnen het Surinaamse merkensysteem.",
+        },
+        {
+          title: "Handhaving",
+          text: "Opposities, doorhalingsacties, anti-namaak en gerechtelijke procedures.",
+        },
+        {
+          title: "Portfoliostrategie",
+          text: "Opzet en beheer van merkportefeuilles over jurisdicties heen.",
+        },
       ],
     },
     cases: {
       heading: "Echte zaken. Doortastende resultaten.",
       items: [
-        { label: "Oppositie", text: "Met succes oppositie gevoerd tegen een conflicterende aanvraag die een internationaal drankmerk bedreigde." },
-        { label: "Weigering", text: "Een weigering op absolute gronden weerlegd en registratie veiliggesteld voor een entertainmentmerk." },
-        { label: "Conflict", text: "Een co-existentieconflict tussen concurrerende consumentenmerken opgelost." },
-        { label: "Handhaving", text: "Een namaakketen ontmanteld via onze eigen onderzoeksafdeling." },
+        {
+          label: "Oppositie",
+          text: "Met succes oppositie gevoerd tegen een conflicterende aanvraag die een internationaal drankmerk bedreigde.",
+        },
+        {
+          label: "Weigering",
+          text: "Een weigering op absolute gronden weerlegd en registratie veiliggesteld voor een entertainmentmerk.",
+        },
+        {
+          label: "Conflict",
+          text: "Een co-existentieconflict tussen concurrerende consumentenmerken opgelost.",
+        },
+        {
+          label: "Handhaving",
+          text: "Een namaakketen ontmanteld via onze eigen onderzoeksafdeling.",
+        },
       ],
     },
   },
 
   about: {
     hero: {
-      headline: "Surinames vertrouwde IP-praktijk met bijna 30 jaar merkenrechtexpertise.",
+      headline:
+        "Surinames vertrouwde IP-praktijk met bijna 30 jaar merkenrechtexpertise.",
       subline:
         "Opgericht in 1997 in Suriname ondersteunt Paramarks PC multinationals, internationale advocatenkantoren en internationale merkhouders met merkregistratie, handhaving en strategische merkbescherming. Vertrouwd door Fortune 500 wereldwijd.",
     },
@@ -165,21 +201,24 @@ const nl: Dictionary = {
       {
         name: "Sherida Knoppel",
         role: "Managing Partner",
-        credentials: "LLM Merkenrecht (Universiteit van Amsterdam) · Lid van INTA & ASIPI",
+        credentials:
+          "LLM Merkenrecht (Universiteit van Amsterdam) · Lid van INTA & ASIPI",
         bio: "Met meer dan 29 jaar ervaring leidt Sherida merkregistratie, handhaving en portfoliostrategie voor multinationals en Fortune 500-cliënten. Actief sinds 1997. Uw merk is altijd in vakkundige handen.",
         icon: "university",
       },
       {
         name: "Rumi Knoppel",
         role: "Hoofd Onderzoek & Handhaving",
-        credentials: "Surinames enige gespecialiseerde merkenonderzoeker · 15+ jaar",
+        credentials:
+          "Surinames enige gespecialiseerde merkenonderzoeker · 15+ jaar",
         bio: "Rumi leidt bewijsvergaring en anti-namaakoperaties via onze eigen onderzoeksafdeling en vertaalt informatie naar doortastende handhavingsresultaten.",
         icon: "magnifier",
       },
       {
         name: "Haliema Chandoe",
         role: "Advocaat",
-        credentials: "Rechtenopleiding Anton de Kom Universiteit · Lid van INTA & ASIPI",
+        credentials:
+          "Rechtenopleiding Anton de Kom Universiteit · Lid van INTA & ASIPI",
         bio: "Decennialange ervaring in het ondersteunen van zakelijke cliënten en buitenlandse confrères in elke fase van merkbescherming in Suriname.",
         icon: "scales",
       },
@@ -197,17 +236,50 @@ const nl: Dictionary = {
         "Van onderzoek en depot tot handhaving, waardering en procedures voor de rechter — wij behandelen elke fase van merkbescherming in Suriname met dezelfde focus en nauwkeurigheid.",
     },
     grid: [
-      { title: "Merkenonderzoek & Clearance", text: "Beschikbaarheidsonderzoek en risicoanalyse vóór het depot." },
-      { title: "Merkregistratie", text: "Volledig depot en registratie in Suriname." },
-      { title: "Merkbewaking", text: "Monitoring om conflicterende aanvragen vroeg te signaleren." },
-      { title: "Merkverlenging", text: "Deadlinebeheer om uw rechten in stand te houden." },
-      { title: "Namaakonderzoek", text: "Eigen informatievergaring en bewijsverzameling." },
-      { title: "Portfoliobeheer", text: "Opzet en onderhoud van merkportefeuilles op schaal." },
-      { title: "Merkhandhaving", text: "Opposities, sommaties en gerechtelijke procedures." },
-      { title: "Doorhalingsacties", text: "Het aanvechten en verdedigen van registraties." },
-      { title: "Internationale depots", text: "Coördinatie van bescherming over jurisdicties heen." },
-      { title: "Merkwaardering", text: "Beoordeling van de commerciële waarde van uw merken." },
-      { title: "Due diligence", text: "IP-onderzoek voor transacties en investeringen." },
+      {
+        title: "Merkenonderzoek & Clearance",
+        text: "Beschikbaarheidsonderzoek en risicoanalyse vóór het depot.",
+      },
+      {
+        title: "Merkregistratie",
+        text: "Volledig depot en registratie in Suriname.",
+      },
+      {
+        title: "Merkbewaking",
+        text: "Monitoring om conflicterende aanvragen vroeg te signaleren.",
+      },
+      {
+        title: "Merkverlenging",
+        text: "Deadlinebeheer om uw rechten in stand te houden.",
+      },
+      {
+        title: "Namaakonderzoek",
+        text: "Eigen informatievergaring en bewijsverzameling.",
+      },
+      {
+        title: "Portfoliobeheer",
+        text: "Opzet en onderhoud van merkportefeuilles op schaal.",
+      },
+      {
+        title: "Merkhandhaving",
+        text: "Opposities, sommaties en gerechtelijke procedures.",
+      },
+      {
+        title: "Doorhalingsacties",
+        text: "Het aanvechten en verdedigen van registraties.",
+      },
+      {
+        title: "Internationale depots",
+        text: "Coördinatie van bescherming over jurisdicties heen.",
+      },
+      {
+        title: "Merkwaardering",
+        text: "Beoordeling van de commerciële waarde van uw merken.",
+      },
+      {
+        title: "Due diligence",
+        text: "IP-onderzoek voor transacties en investeringen.",
+      },
     ],
     supporting: {
       title: "Eén aanspreekpunt. Diepgaande lokale expertise.",
@@ -218,7 +290,8 @@ const nl: Dictionary = {
   caseStudies: {
     hero: {
       headline: "Geselecteerde zaken, echte resultaten.",
-      subline: "Representatieve zaken die laten zien hoe Paramarks merken beschermt in Suriname en internationaal.",
+      subline:
+        "Representatieve zaken die laten zien hoe Paramarks merken beschermt in Suriname en internationaal.",
     },
     items: [
       {
@@ -252,7 +325,8 @@ const nl: Dictionary = {
   faq: {
     hero: {
       headline: "Vragen, beantwoord.",
-      subline: "Praktische antwoorden over merkbescherming, registratie en handhaving in Suriname.",
+      subline:
+        "Praktische antwoorden over merkbescherming, registratie en handhaving in Suriname.",
     },
     items: [
       {
@@ -281,7 +355,8 @@ const nl: Dictionary = {
   contact: {
     hero: {
       headline: "Spreek met ons IP-team.",
-      subline: "Vertel ons over uw merken- of handhavingszaak. Wij reageren snel op alle aanvragen.",
+      subline:
+        "Vertel ons over uw merken- of handhavingszaak. Wij reageren snel op alle aanvragen.",
     },
     form: {
       name: "Naam",
