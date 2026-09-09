@@ -10,6 +10,7 @@ import Wordmark from "./Wordmark";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const NAV_ITEMS: { key: RouteKey; labelKey: keyof Dictionary["nav"] }[] = [
+  { key: "home", labelKey: "home" },
   { key: "about", labelKey: "about" },
   { key: "team", labelKey: "team" },
   { key: "services", labelKey: "services" },
