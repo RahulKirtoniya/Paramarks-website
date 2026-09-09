@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ring: 198 161 91; /* gold-500 for focus rings */
+    --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-manrope: "Manrope", system-ui, -apple-system, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-sand-50 text-ink-700 font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif text-plum-700;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: theme("colors.gold.300");
+    color: theme("colors.plum.900");
+  }
+
+  /* Visible, on-brand keyboard focus */
+  :focus-visible {
+    outline: 2px solid theme("colors.gold.500");
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 sm:px-8 lg:px-10;
+  }
+
+  /* Thin gold hairline — the recurring structural motif */
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-gold-500/70 via-gold-500/25 to-transparent;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5
+           text-sm font-semibold tracking-wide transition-all duration-200
+           focus-visible:outline-none;
+  }
+  .btn-gold {
+    @apply btn bg-gold-500 text-plum-950 hover:bg-gold-400
+           shadow-[0_10px_24px_-10px_rgba(198,161,91,0.7)] hover:-translate-y-0.5;
+  }
+  .btn-plum {
+    @apply btn bg-plum-700 text-sand-50 hover:bg-plum-600 hover:-translate-y-0.5;
+  }
+  .btn-outline {
+    @apply btn border border-plum-300/60 text-plum-700 hover:border-gold-500
+           hover:text-plum-900;
+  }
+  .btn-ghost-light {
+    @apply btn border border-sand-50/30 text-sand-50 hover:border-gold-400
+           hover:text-gold-300;
+  }
+
+  /* Eyebrow label — used sparingly, sentence-styled not shouty all-caps blocks */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase
+           tracking-[0.18em] text-gold-600;
+  }
+}
