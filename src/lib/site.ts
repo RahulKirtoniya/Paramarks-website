@@ -6,7 +6,10 @@ export const site = {
   legalName: "Paramarks PC",
   // IMPORTANT: set this to the production domain before deploy — SEO alternates,
   // canonicals and the sitemap all derive from it.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.paramarks.com",
+  url:
+    (process.env.NEXT_PUBLIC_SITE_URL &&
+      process.env.NEXT_PUBLIC_SITE_URL.trim()) ||
+    "https://www.paramarks.com",
   foundingYear: "1997",
   areaServed: "Suriname",
   languages: ["English", "Dutch"],
