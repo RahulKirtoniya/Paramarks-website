@@ -153,7 +153,7 @@ export default function HeroRegister({
           {/* Center: monogram when empty, the visitor's mark when typed */}
           {!hasMark ? (
             <g className="hr-mark seal-fade-2">
-              <text x={C} y={C + 2} textAnchor="middle" dominantBaseline="central" fill={GOLD_SOFT} style={{ fontFamily: '"Bodoni Moda", Georgia, serif', fontSize: "76px", fontWeight: 600 }}>
+              <text x={C} y={C + 2} textAnchor="middle" dominantBaseline="central" fill={GOLD_SOFT} style={{ fontFamily: '"Spectral", Georgia, serif', fontSize: "76px", fontWeight: 600 }}>
                 P
               </text>
               <text x={C + 34} y={C - 22} textAnchor="middle" dominantBaseline="central" fill={GOLD} style={{ fontFamily: "Manrope, sans-serif", fontSize: "16px", fontWeight: 600 }}>
@@ -171,7 +171,7 @@ export default function HeroRegister({
                 textLength={mark.length > 8 ? 120 : undefined}
                 lengthAdjust="spacingAndGlyphs"
                 style={{
-                  fontFamily: '"Bodoni Moda", Georgia, serif',
+                  fontFamily: '"Spectral", Georgia, serif',
                   fontSize: `${fitSize(mark.length)}px`,
                   fontWeight: 600,
                   letterSpacing: mark.length <= 8 ? "0.02em" : "0",

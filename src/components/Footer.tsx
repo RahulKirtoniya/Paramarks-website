@@ -4,6 +4,7 @@ import type { Dictionary } from "@/i18n/dictionaries/types";
 import { localePath, type RouteKey } from "@/lib/paths";
 import { site } from "@/lib/site";
 import Wordmark from "./Wordmark";
+import FooterContact from "./FooterContact";
 
 const FOOTER_NAV: { key: RouteKey; labelKey: keyof Dictionary["nav"] }[] = [
   { key: "about", labelKey: "about" },
@@ -25,6 +26,7 @@ export default function Footer({
 
   return (
     <footer className="bg-plum-950 text-sand-200/80">
+      <FooterContact locale={locale} dict={dict} />
       <div className="container-x py-16">
         <div className="grid gap-12 md:grid-cols-12">
           {/* Brand + tagline */}

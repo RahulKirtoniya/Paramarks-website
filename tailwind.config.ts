@@ -1,10 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/app/**/*.{ts,tsx}",
-    "./src/components/**/*.{ts,tsx}",
-  ],
+  content: ["./src/app/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -48,14 +45,26 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['"Bodoni Moda"', "Georgia", "serif"],
+        serif: ['"Spectral"', "Georgia", "serif"],
         sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "display-lg": ["clamp(2.9rem, 6.2vw, 5.5rem)", { lineHeight: "1.0", letterSpacing: "-0.015em" }],
-        "display": ["clamp(2.3rem, 4.6vw, 3.9rem)", { lineHeight: "1.04", letterSpacing: "-0.012em" }],
-        "headline": ["clamp(1.8rem, 3vw, 2.6rem)", { lineHeight: "1.1", letterSpacing: "-0.008em" }],
-        "title": ["clamp(1.2rem, 2vw, 1.55rem)", { lineHeight: "1.2", letterSpacing: "-0.005em" }],
+        "display-lg": [
+          "clamp(2.9rem, 6.2vw, 5.5rem)",
+          { lineHeight: "1.0", letterSpacing: "-0.015em" },
+        ],
+        display: [
+          "clamp(2.3rem, 4.6vw, 3.9rem)",
+          { lineHeight: "1.04", letterSpacing: "-0.012em" },
+        ],
+        headline: [
+          "clamp(1.8rem, 3vw, 2.6rem)",
+          { lineHeight: "1.1", letterSpacing: "-0.008em" },
+        ],
+        title: [
+          "clamp(1.2rem, 2vw, 1.55rem)",
+          { lineHeight: "1.2", letterSpacing: "-0.005em" },
+        ],
       },
       maxWidth: {
         prose: "66ch",

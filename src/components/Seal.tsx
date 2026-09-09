@@ -112,7 +112,7 @@ export default function Seal({
           textAnchor="middle"
           dominantBaseline="central"
           fill={GOLD_SOFT}
-          style={{ fontFamily: '"Bodoni Moda", Georgia, serif', fontSize: "76px", fontWeight: 600 }}
+          style={{ fontFamily: '"Spectral", Georgia, serif', fontSize: "76px", fontWeight: 600 }}
         >
           P
         </text>
