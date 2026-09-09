@@ -182,7 +182,7 @@ export default function Navbar({
             </Link>
           ))}
           <div className="mt-3 flex items-center justify-between border-t border-plum-100 pt-4">
-            <LanguageSwitcher current={locale} label={dict.nav.languageLabel} />
+            <LanguageSwitcher current={locale} label={dict.nav.languageLabel} variant="inline" />
             <Link href={localePath(locale, "contact")} className="btn-gold whitespace-nowrap py-2.5 text-xs">
               {dict.nav.cta}
             </Link>

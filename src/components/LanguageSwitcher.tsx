@@ -7,24 +7,27 @@ import { locales, localeLabels, localeNames, type Locale } from "@/i18n/config";
 import { GlobeIcon, ChevronDownIcon } from "./icons/Icons";
 
 /**
- * Language switcher as a compact dropdown: a globe + the current language,
- * which opens a small menu to switch. Closes on outside click, Esc, or select.
- * Keeps the visitor on the same page in the other locale.
+ * Language switcher.
+ * - "dropdown" (default): a globe button that opens a small menu — used in the
+ *   desktop header where there's room and no clipping.
+ * - "inline": the locales shown side-by-side as tappable pills — used in the
+ *   mobile menu, where a dropdown would be clipped by the menu's overflow.
  */
 export default function LanguageSwitcher({
   current,
   label,
   light = false,
+  variant = "dropdown",
 }: {
   current: Locale;
   label: string;
   light?: boolean;
+  variant?: "dropdown" | "inline";
 }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Swap the first path segment (the locale) and keep the rest of the URL.
   function pathFor(locale: Locale): string {
     const segments = pathname.split("/");
     segments[1] = locale;
@@ -45,6 +48,34 @@ export default function LanguageSwitcher({
     };
   }, [open]);
 
+  /* ---------------- Inline (mobile) ---------------- */
+  if (variant === "inline") {
+    return (
+      <div className="flex items-center gap-1.5" role="group" aria-label={label}>
+        <GlobeIcon className="h-4 w-4 text-gold-600" />
+        {locales.map((locale) => {
+          const active = locale === current;
+          return (
+            <Link
+              key={locale}
+              href={pathFor(locale)}
+              hrefLang={locale}
+              aria-label={localeNames[locale]}
+              aria-current={active ? "true" : undefined}
+              className={[
+                "rounded-md px-3 py-1.5 text-sm font-semibold transition-colors",
+                active ? "bg-plum-100 text-plum-700" : "text-ink-500 hover:text-plum-700",
+              ].join(" ")}
+            >
+              {localeLabels[locale]}
+            </Link>
+          );
+        })}
+      </div>
+    );
+  }
+
+  /* ---------------- Dropdown (desktop) ---------------- */
   const trigger = light
     ? "border-sand-50/25 text-sand-50 hover:border-gold-400"
     : "border-plum-200 text-plum-700 hover:border-gold-500";
@@ -72,7 +103,7 @@ export default function LanguageSwitcher({
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-50 mt-2 min-w-[168px] overflow-hidden rounded-card border border-plum-100 bg-paper py-1.5 shadow-lift"
+          className="absolute right-0 top-full z-[60] mt-2 min-w-[168px] overflow-hidden rounded-card border border-plum-100 bg-paper py-1.5 shadow-lift"
         >
           {locales.map((locale) => {
             const active = locale === current;
