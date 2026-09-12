@@ -126,6 +126,19 @@ export default function Footer({
             </Link>
           </div>
         </div>
+
+        {/* Attribution */}
+        <div className="mt-4 text-center text-xs text-sand-200/40 sm:text-left">
+          {locale === "nl" ? "Gemaakt door " : "Made by "}
+          <a
+            href="https://shaanark.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-sand-200/60 transition-colors hover:text-gold-300"
+          >
+            Shaanark Ventures
+          </a>
+        </div>
       </div>
     </footer>
   );
