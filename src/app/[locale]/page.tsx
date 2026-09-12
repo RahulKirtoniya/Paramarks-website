@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/lib/getDictionary";
@@ -33,76 +34,97 @@ export default async function HomePage({
   const credentials =
     locale === "nl"
       ? [
-          { k: "Opgericht", v: "1997" },
-          { k: "Vertrouwd door", v: "Fortune 500" },
-          { k: "Lidmaatschap", v: "INTA & ASIPI" },
-          { k: "Onderzoek", v: "Eigen afdeling" },
-        ]
+        { k: "Opgericht", v: "1997" },
+        { k: "Vertrouwd door", v: "Fortune 500" },
+        { k: "Lidmaatschap", v: "INTA & ASIPI" },
+        { k: "Onderzoek", v: "Eigen afdeling" },
+      ]
       : [
-          { k: "Founded", v: "1997" },
-          { k: "Trusted by", v: "Fortune 500" },
-          { k: "Members of", v: "INTA & ASIPI" },
-          { k: "Investigations", v: "In-house unit" },
-        ];
+        { k: "Founded", v: "1997" },
+        { k: "Trusted by", v: "Fortune 500" },
+        { k: "Members of", v: "INTA & ASIPI" },
+        { k: "Investigations", v: "In-house unit" },
+      ];
 
   return (
     <>
       {/* ---------------- HERO ---------------- */}
       <section className="relative overflow-hidden bg-plum-900 text-sand-50">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(60% 80% at 82% 30%, rgba(198,161,91,0.10), transparent 60%)",
-          }}
-        />
-        <div className="container-x relative">
-          <div className="grid items-center gap-y-12 pb-20 pt-20 sm:pt-24 lg:grid-cols-12 lg:gap-x-10 lg:pb-28 lg:pt-28">
-            <div className="lg:col-span-7">
-              <p className="label label-light">
-                {locale === "nl" ? "Intellectueel eigendom \u2014 Suriname" : "Intellectual property \u2014 Suriname"}
-              </p>
-              <h1 className="mt-7 max-w-[15ch] text-display-lg text-sand-50 animate-rise">
-                {hero.headline}
-              </h1>
-              <p className="mt-8 max-w-xl text-[1.15rem] leading-relaxed text-sand-200/85">
-                {hero.subline}
-              </p>
-              <p className="mt-6 max-w-xl border-l border-gold-500/50 pl-5 text-[1rem] leading-relaxed text-sand-200/70">
-                {hero.impact}
-              </p>
+        {/* Main hero area (holds the background image; credential bar stays clear) */}
+        <div className="relative overflow-hidden">
+          {/* Background: faint Suriname engraving, dimmed for contrast */}
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <Image
+              src="/hero-bg.png"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center opacity-40"
+            />
+            {/* Darken for text — heaviest on the left where the headline sits */}
+            <div className="absolute inset-0 bg-gradient-to-r from-plum-900 via-plum-900/85 to-plum-900/55" />
+            {/* Keep the right (seal) side calm: fade to solid plum */}
+            <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-plum-900 to-transparent" />
+            {/* Gentle top/bottom seat */}
+            <div className="absolute inset-0 bg-gradient-to-b from-plum-900/40 via-transparent to-plum-900/70" />
+            {/* Gold glow accent */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(60% 80% at 82% 30%, rgba(198,161,91,0.10), transparent 60%)",
+              }}
+            />
+          </div>
 
-              <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-                <Link href={localePath(locale, "contact")} className="btn-gold">
-                  {dict.cta.contact}
-                </Link>
-                <Tagline text={dict.tagline} variant="light" className="text-[1.15rem]" />
+          <div className="container-x relative">
+            <div className="grid items-center gap-y-12 pb-20 pt-20 sm:pt-24 lg:grid-cols-12 lg:gap-x-10 lg:pb-28 lg:pt-28">
+              <div className="lg:col-span-7">
+                <p className="label label-light">
+                  {locale === "nl" ? "Intellectueel eigendom \u2014 Suriname" : "Intellectual property \u2014 Suriname"}
+                </p>
+                <h1 className="mt-7 max-w-[15ch] text-display-lg text-sand-50 animate-rise">
+                  {hero.headline}
+                </h1>
+                <p className="mt-8 max-w-xl text-[1.15rem] leading-relaxed text-sand-200/85">
+                  {hero.subline}
+                </p>
+                <p className="mt-6 max-w-xl border-l border-gold-500/50 pl-5 text-[1rem] leading-relaxed text-sand-200/70">
+                  {hero.impact}
+                </p>
+
+                <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+                  <Link href={localePath(locale, "contact")} className="btn-gold">
+                    {dict.cta.contact}
+                  </Link>
+                  <Tagline text={dict.tagline} variant="light" className="text-[1.15rem]" />
+                </div>
               </div>
-            </div>
 
-            {/* The registered seal — interactive: type a brand, see it engraved */}
-            <div className="lg:col-span-5">
-              <HeroRegister
-                inputLabel={
-                  locale === "nl"
-                    ? "Zie uw eigen merk in het zegel"
-                    : "See your own brand in the seal"
-                }
-                placeholder={locale === "nl" ? "Voer uw merk in" : "Enter your brand"}
-                action={locale === "nl" ? "Registreer het merk" : "See it registered"}
-                confirm={
-                  locale === "nl"
-                    ? "{brand} \u2014 uw merk, in vakkundige handen."
-                    : "{brand} \u2014 your mark, in qualified hands."
-                }
-              />
+              {/* The registered seal — interactive: type a brand, see it engraved */}
+              <div className="lg:col-span-5">
+                <HeroRegister
+                  inputLabel={
+                    locale === "nl"
+                      ? "Zie uw eigen merk in het zegel"
+                      : "See your own brand in the seal"
+                  }
+                  placeholder={locale === "nl" ? "Voer uw merk in" : "Enter your brand"}
+                  action={locale === "nl" ? "Registreer het merk" : "See it registered"}
+                  confirm={
+                    locale === "nl"
+                      ? "{brand} \u2014 uw merk, in vakkundige handen."
+                      : "{brand} \u2014 your mark, in qualified hands."
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Credential register — structural vertical rules, not a meta-dot string */}
-        <div className="relative border-t border-sand-50/12 bg-plum-950/40">
+        <div className="relative border-t border-sand-50/12 bg-plum-950">
           <div className="container-x">
             <dl className="grid grid-cols-2 lg:grid-cols-4">
               {credentials.map((c, i) => (
