@@ -64,7 +64,7 @@ export default async function LocaleLayout({
           href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap"
         />
       </head>
-      <body className="flex min-h-screen flex-col">
+      <body className="min-h-screen">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-plum-700 focus:px-4 focus:py-2 focus:text-sm focus:text-sand-50"
@@ -72,7 +72,7 @@ export default async function LocaleLayout({
           Skip to content
         </a>
         <Navbar locale={locale} dict={dict} />
-        <main id="main" className="flex-1">
+        <main id="main">
           {children}
         </main>
         <Footer locale={locale} dict={dict} />
