@@ -43,6 +43,20 @@ export default function Navbar({
     setOpen(false);
   }, [pathname]);
 
+  // Lock body scroll while the drawer is open; close on Escape.
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+      window.addEventListener("keydown", onKey);
+      return () => {
+        document.body.style.overflow = prev;
+        window.removeEventListener("keydown", onKey);
+      };
+    }
+  }, [open]);
+
   const isActive = (key: RouteKey) => pathname === localePath(locale, key);
 
   return (
@@ -156,38 +170,74 @@ export default function Navbar({
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer + backdrop (kept mounted so open AND close animate) */}
+      <div
+        aria-hidden
+        onClick={() => setOpen(false)}
+        className={[
+          "fixed inset-0 z-[55] bg-plum-950/60 backdrop-blur-sm transition-opacity duration-300 xl:hidden",
+          open ? "opacity-100" : "pointer-events-none opacity-0",
+        ].join(" ")}
+      />
       <div
         id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
         className={[
-          "overflow-hidden border-t border-plum-100 bg-sand-50 xl:hidden",
-          open ? "max-h-[520px]" : "max-h-0",
-          "transition-[max-height] duration-300 ease-in-out",
+          "fixed right-0 top-0 z-[60] flex h-full w-[min(86vw,360px)] flex-col bg-sand-50 shadow-2xl xl:hidden",
+          "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform",
+          open ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
       >
-        <nav className="container-x flex flex-col gap-1 py-4" aria-label="Mobile">
-          {NAV_ITEMS.map((item) => (
+        {/* Drawer header */}
+        <div className="flex items-center justify-between border-b border-plum-100 px-6 py-4">
+          <Wordmark locale={locale} />
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close menu"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-plum-200 text-plum-700 transition-colors hover:border-gold-500"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Links */}
+        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-5" aria-label="Mobile">
+          {NAV_ITEMS.map((item, i) => (
             <Link
               key={item.key}
               href={localePath(locale, item.key)}
               aria-current={isActive(item.key) ? "page" : undefined}
+              style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms" }}
               className={[
-                "rounded-lg px-3 py-3 text-base font-medium",
+                "rounded-lg px-3 py-3 text-lg font-medium transition-all duration-300",
+                open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
                 isActive(item.key)
                   ? "bg-plum-100 text-plum-700"
-                  : "text-ink-600 hover:bg-sand-100",
+                  : "text-ink-600 hover:bg-sand-100 hover:text-plum-700",
               ].join(" ")}
             >
               {dict.nav[item.labelKey]}
             </Link>
           ))}
-          <div className="mt-3 flex items-center justify-between border-t border-plum-100 pt-4">
+        </nav>
+
+        {/* Footer: language + CTA */}
+        <div className="border-t border-plum-100 px-6 py-5">
+          <div className="flex items-center justify-between gap-4">
             <LanguageSwitcher current={locale} label={dict.nav.languageLabel} variant="inline" />
-            <Link href={localePath(locale, "contact")} className="btn-gold whitespace-nowrap py-2.5 text-xs">
+            <Link
+              href={localePath(locale, "contact")}
+              className="btn-gold whitespace-nowrap py-2.5 text-xs"
+            >
               {dict.nav.cta}
             </Link>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   );
