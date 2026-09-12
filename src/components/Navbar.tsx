@@ -68,13 +68,8 @@ export default function Navbar({
           : "bg-sand-50/0",
       ].join(" ")}
     >
-      {/* Utility bar — email & phone. Collapses on scroll to save space. */}
-      <div
-        className={[
-          "hidden overflow-hidden border-b border-plum-100 transition-all duration-300 md:block",
-          scrolled ? "max-h-0 opacity-0" : "max-h-12 opacity-100",
-        ].join(" ")}
-      >
+      {/* Utility bar — email & phone. Stays pinned with the header on desktop. */}
+      <div className="hidden border-b border-plum-100 md:block">
         <div className="container-x">
           <div className="flex h-10 items-center justify-between text-xs">
             <p className="font-serif italic text-gold-700">{dict.tagline}</p>
@@ -191,13 +186,20 @@ export default function Navbar({
         ].join(" ")}
       >
         {/* Drawer header */}
-        <div className="flex items-center justify-between border-b border-plum-100 px-6 py-4">
-          <Wordmark locale={locale} />
+        <div className="flex items-center justify-between gap-3 border-b border-plum-100 bg-sand-100 px-6 py-4">
+          <div>
+            <Wordmark locale={locale} />
+            <p className="mt-1.5 text-xs text-ink-400">
+              {locale === "nl"
+                ? "Merken- & IP-advocaten \u00B7 Suriname"
+                : "Trademark & IP attorneys \u00B7 Suriname"}
+            </p>
+          </div>
           <button
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-plum-200 text-plum-700 transition-colors hover:border-gold-500"
+            className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-plum-200 text-plum-700 transition-colors hover:border-gold-500"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true">
               <path d="M6 6l12 12M18 6L6 18" />
@@ -205,38 +207,42 @@ export default function Navbar({
           </button>
         </div>
 
-        {/* Links */}
-        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-5" aria-label="Mobile">
+        {/* Links — large serif rows with chevrons and hairline dividers */}
+        <nav className="flex-1 overflow-y-auto px-6" aria-label="Mobile">
           {NAV_ITEMS.map((item, i) => (
             <Link
               key={item.key}
               href={localePath(locale, item.key)}
               aria-current={isActive(item.key) ? "page" : undefined}
-              style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms" }}
+              style={{ transitionDelay: open ? `${70 + i * 40}ms` : "0ms" }}
               className={[
-                "rounded-lg px-3 py-3 text-lg font-medium transition-all duration-300",
-                open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
-                isActive(item.key)
-                  ? "bg-plum-100 text-plum-700"
-                  : "text-ink-600 hover:bg-sand-100 hover:text-plum-700",
+                "flex items-center justify-between gap-4 border-b border-plum-100 py-5 transition-all duration-300",
+                open ? "translate-x-0 opacity-100" : "translate-x-5 opacity-0",
               ].join(" ")}
             >
-              {dict.nav[item.labelKey]}
+              <span
+                className={[
+                  "font-serif text-[1.6rem] leading-none",
+                  isActive(item.key) ? "text-gold-700" : "text-plum-700",
+                ].join(" ")}
+              >
+                {dict.nav[item.labelKey]}
+              </span>
+              <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none text-plum-300" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
             </Link>
           ))}
         </nav>
 
-        {/* Footer: language + CTA */}
+        {/* Bottom: language + prominent CTA */}
         <div className="border-t border-plum-100 px-6 py-5">
-          <div className="flex items-center justify-between gap-4">
+          <div className="mb-4 flex justify-center">
             <LanguageSwitcher current={locale} label={dict.nav.languageLabel} variant="inline" />
-            <Link
-              href={localePath(locale, "contact")}
-              className="btn-gold whitespace-nowrap py-2.5 text-xs"
-            >
-              {dict.nav.cta}
-            </Link>
           </div>
+          <Link href={localePath(locale, "contact")} className="btn-gold w-full">
+            {dict.nav.cta}
+          </Link>
         </div>
       </div>
     </header>
