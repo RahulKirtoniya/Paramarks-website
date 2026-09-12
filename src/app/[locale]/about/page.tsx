@@ -34,6 +34,32 @@ export default async function AboutPage({
         eyebrow={locale === "nl" ? "Over Paramarks" : "About Paramarks"}
         headline={hero.headline}
         subline={hero.subline}
+        aside={
+          <div className="lg:ml-auto lg:max-w-xs">
+            <p className="label label-light">{locale === "nl" ? "In het kort" : "At a glance"}</p>
+            <dl className="mt-6 divide-y divide-sand-50/12 border-y border-sand-50/12">
+              {(locale === "nl"
+                ? [
+                  { k: "Opgericht", v: "1997" },
+                  { k: "Vertrouwd door", v: "Fortune 500" },
+                  { k: "Lidmaatschap", v: "INTA & ASIPI" },
+                  { k: "Onderzoek", v: "Eigen afdeling" },
+                ]
+                : [
+                  { k: "Founded", v: "1997" },
+                  { k: "Trusted by", v: "Fortune 500" },
+                  { k: "Members of", v: "INTA & ASIPI" },
+                  { k: "Investigations", v: "In-house unit" },
+                ]
+              ).map((c, i) => (
+                <div key={i} className="flex items-baseline justify-between gap-6 py-3.5">
+                  <dt className="text-sm text-sand-200/70">{c.k}</dt>
+                  <dd className="font-serif text-[1.15rem] font-semibold text-gold-300">{c.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        }
       />
 
       {/* Intro */}

@@ -13,7 +13,8 @@ function localizedPaths(route: string): Record<string, string> {
     map[l] = route === "/" ? `/${l}` : `/${l}${route}`;
   }
   // x-default points at the default locale — good practice for international sites.
-  map["x-default"] = route === "/" ? `/${defaultLocale}` : `/${defaultLocale}${route}`;
+  map["x-default"] =
+    route === "/" ? `/${defaultLocale}` : `/${defaultLocale}${route}`;
   return map;
 }
 
@@ -23,7 +24,11 @@ interface BuildMetaArgs {
   meta: PageMeta;
 }
 
-export function buildMetadata({ locale, route, meta }: BuildMetaArgs): Metadata {
+export function buildMetadata({
+  locale,
+  route,
+  meta,
+}: BuildMetaArgs): Metadata {
   const canonicalPath = route === "/" ? `/${locale}` : `/${locale}${route}`;
   const canonical = `${site.url}${canonicalPath}`;
 
@@ -43,11 +48,24 @@ export function buildMetadata({ locale, route, meta }: BuildMetaArgs): Metadata 
       url: canonical,
       locale: locale === "nl" ? "nl_NL" : "en_US",
       alternateLocale: locale === "nl" ? ["en_US"] : ["nl_NL"],
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${site.name} — ${
+            locale === "nl"
+              ? "Merken- & IP-advocaten in Suriname"
+              : "Trademark & IP attorneys in Suriname"
+          }`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: meta.title,
       description: meta.description,
+      images: ["/og-image.png"],
     },
   };
 }
